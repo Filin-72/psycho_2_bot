@@ -1,8 +1,38 @@
-import telebot
 from keyboards import *
 import random
 
 bot = telebot.TeleBot('')
+
+
+class answers_parents:
+    def __init__(self, ans1, ans2, ans3, ans4, ans5, ans6, ans7, ans8, ans9, ans10):
+        self.ans1 = ans1
+        self.ans2 = ans2
+        self.ans3 = ans3
+        self.ans4 = ans4
+        self.ans5 = ans5
+        self.ans6 = ans6
+        self.ans7 = ans7
+        self.ans8 = ans8
+        self.ans9 = ans9
+        self.ans10 = ans10
+
+
+
+class answers_oge:
+    def __init__(self, ans1_oge, ans2_oge):
+        self.ans1 = ans1_oge
+        self.ans2 = ans2_oge
+
+
+
+class answers_ege:
+    def __init__(self, ans1_ege, ans2_ege, ans3_ege, ans4_ege,ans5_ege):
+        self.ans1 = ans1_ege
+        self.ans2 = ans2_ege
+        self.ans3 = ans3_ege
+        self.ans4 = ans4_ege
+        self.ans5 = ans5_ege
 
 
 @bot.message_handler(commands=['start', 'go'])
@@ -93,93 +123,93 @@ def get_attention_parents1(message):
 
 def get_attention_parents2(message):
     start3 = bot.send_message(message.chat.id, 'Интересуешься ли ты работой своих родителей?', reply_markup=keyboard3)
-    global ans1
     ans1 = message.text
+    answers_parents.ans1 = ans1.lower()
     bot.register_next_step_handler(start3, get_attention_parents3)
 
 
 def get_attention_parents3(message):
     start4 = bot.send_message(message.chat.id, 'Рассказываешь ли ты родителям о своих друзьях?', reply_markup=keyboard3)
-    global ans2
     ans2 = message.text
+    answers_parents.ans2 = ans2.lower()
     bot.register_next_step_handler(start4, get_attention_parents4)
 
 
 def get_attention_parents4(message):
     start5 = bot.send_message(message.chat.id, 'Есть ли у тебя с родителями общие увлечения?', reply_markup=keyboard3)
-    global ans3
     ans3 = message.text
+    answers_parents.ans3 = ans3.lower()
     bot.register_next_step_handler(start5, get_attention_parents5)
 
 
 def get_attention_parents5(message):
     start6 = bot.send_message(message.chat.id, 'Часто ли вы проводите время вместе?', reply_markup=keyboard3)
-    global ans4
     ans4 = message.text
+    answers_parents.ans4 = ans4.lower()
     bot.register_next_step_handler(start6, get_attention_parents6)
 
 
 def get_attention_parents6(message):
     start7 = bot.send_message(message.chat.id, 'Есть ли у вас с родителями доверие?', reply_markup=keyboard3)
-    global ans5
     ans5 = message.text
+    answers_parents.ans5 = ans5.lower()
     bot.register_next_step_handler(start7, get_attention_parents7)
 
 
 def get_attention_parents7(message):
     start8 = bot.send_message(message.chat.id, 'Готов ли ты помогать родителям по их просьбе?', reply_markup=keyboard3)
-    global ans6
     ans6 = message.text
+    answers_parents.ans6 = ans6.lower()
     bot.register_next_step_handler(start8, get_attention_parents8)
 
 
 def get_attention_parents8(message):
     start9 = bot.send_message(message.chat.id, 'А помогут ли тебе родители по твоей просьбе, как думаешь?',
                               reply_markup=keyboard3)
-    global ans7
     ans7 = message.text
+    answers_parents.ans7 = ans7.lower()
     bot.register_next_step_handler(start9, get_attention_parents9)
 
 
 def get_attention_parents9(message):
     start10 = bot.send_message(message.chat.id, 'Сможешь ли ты положиться на родителей, если будет сложная ситуация?',
                                reply_markup=keyboard3)
-    global ans8
     ans8 = message.text
+    answers_parents.ans8 = ans8.lower()
     bot.register_next_step_handler(start10, get_attention_parents10)
 
 
 def get_attention_parents10(message):
     start11 = bot.send_message(message.chat.id, 'В твоих родителях больше хорошего, чем плохого?',
                                reply_markup=keyboard3)
-    global ans9
     ans9 = message.text
+    answers_parents.ans9 = ans9.lower()
     bot.register_next_step_handler(start11, counter)
 
 
 def counter(message):
     end0 = bot.send_message(message.chat.id, 'Я провожу вычисления, секунду...', reply_markup=keyboard4)
-    global ans10
     ans10 = message.text
+    answers_parents.ans10 = ans10.lower()
+    a = answers_parents.ans1
+    b = answers_parents.ans2
+    c = answers_parents.ans3
+    d = answers_parents.ans4
+    e = answers_parents.ans5
+    f = answers_parents.ans6
+    g = answers_parents.ans7
+    h = answers_parents.ans8
+    j = answers_parents.ans9
+    k = answers_parents.ans10
+    end = [a, b, c, d, e, f, g, h, j, k]
     global i
     i = 0
-    a = ans1.lower()
-    b = ans2.lower()
-    c = ans3.lower()
-    d = ans4.lower()
-    e = ans5.lower()
-    f = ans6.lower()
-    g = ans7.lower()
-    h = ans8.lower()
-    j = ans9.lower()
-    k = ans10.lower()
-    end = [a, b, c, d, e, f, g, h, j, k]
     for z in range(0, 10):
-        if end[i] == "да":
+        if end[z] == "да":
             i += 1
-        elif end[i] == "иногда":
+        elif end[z] == "иногда":
             i = i + 0
-        elif end[i] == "нет":
+        elif end[z] == "нет":
             i = i - 1
         else:
             i = i + 0
@@ -187,6 +217,7 @@ def counter(message):
 
 
 def get_attention_end(message):
+    bot.send_message(message.chat.id, i)
     if i > 3:
         end1 = bot.send_message(message.chat.id, 'Вроде как ваши отношения смотрятся очень неплохо! '
                                                  'И всё-таки проблема есть. Нужно понимать, отношения с родителями - тяжёлая штука. '
@@ -438,11 +469,11 @@ def get_sleep2(message):
 
 def get_things(message):
     good = bot.send_message(message.chat.id, 'Это могло быть непросто, но ты справился. '
-                                      'Теперь, когда ты знаешь, когда и как может возникнуть тревога, '
-                                      'важно от неё дистанцироваться. Можешь придумать тревоге имя, '
-                                      'представить её в виде персонажа или дать ей смешное прозвище. '
-                                      'Что угодно, что поможет тебе лучше идентифицировать тревожность '
-                                      'и не воспринимать её как часть себя. Напиши имя или прозвище в чат: ')
+                                             'Теперь, когда ты знаешь, когда и как может возникнуть тревога, '
+                                             'важно от неё дистанцироваться. Можешь придумать тревоге имя, '
+                                             'представить её в виде персонажа или дать ей смешное прозвище. '
+                                             'Что угодно, что поможет тебе лучше идентифицировать тревожность '
+                                             'и не воспринимать её как часть себя. Напиши имя или прозвище в чат: ')
     bot.register_next_step_handler(good, get_things2)
 
 
@@ -460,22 +491,22 @@ def get_things2(message):
 
 def get_things3(message):
     good = bot.send_message(message.chat.id, 'После выявления причины тревожности и дистанцирования от неё, '
-                                      'тебе необходимо сделать её предсказуемой. Это не значит, '
-                                      'что нужно постоянно ожидать новый стресс из-за чего-то. '
-                                      'Но есть ситуации, в которых она точно появится. Когда это произойдёт, '
-                                      'скажи ей что-то вроде "Тревога, ты очень предсказуемая" '
-                                      'или "Тревога, ты мешаешь мне учиться новому".', reply_markup=keyboard4)
+                                             'тебе необходимо сделать её предсказуемой. Это не значит, '
+                                             'что нужно постоянно ожидать новый стресс из-за чего-то. '
+                                             'Но есть ситуации, в которых она точно появится. Когда это произойдёт, '
+                                             'скажи ей что-то вроде "Тревога, ты очень предсказуемая" '
+                                             'или "Тревога, ты мешаешь мне учиться новому".', reply_markup=keyboard4)
     bot.register_next_step_handler(good, get_things4)
 
 
 def get_things4(message):
     good = bot.send_message(message.chat.id, 'Ну и последнее: практикуй некомфортные ситуации! '
-                                      'Необходимо создать новый позитивный опыт реагирования на тревожные ситуации, '
-                                      'а это возможно только с практикой. Если страшно идти сразу в какие-то '
-                                      'реальные ситуации, можно попробовать ролевую игру с родителями, '
-                                      'друзьями или твоим психологом. Главное - это не потакать тревоге, '
-                                      'не идти у неё на поводу! Верю, что у тебя всё получится :)',
-                     reply_markup=keyboard5)
+                                             'Необходимо создать новый позитивный опыт реагирования на тревожные ситуации, '
+                                             'а это возможно только с практикой. Если страшно идти сразу в какие-то '
+                                             'реальные ситуации, можно попробовать ролевую игру с родителями, '
+                                             'друзьями или твоим психологом. Главное - это не потакать тревоге, '
+                                             'не идти у неё на поводу! Верю, что у тебя всё получится :)',
+                            reply_markup=keyboard5)
     bot.register_next_step_handler(good, start_handler)
 
 
@@ -492,7 +523,8 @@ def get_friends(message):
 def get_why(message):
     if message.text.lower() == 'нет':
         no = bot.send_message(message.chat.id, 'Главное тебе сейчас не опускать руки! '
-                                               'Скажи, как ты думаешь, почему у тебя сейчас нет друзей?', reply_markup=keyboard14)
+                                               'Скажи, как ты думаешь, почему у тебя сейчас нет друзей?',
+                              reply_markup=keyboard14)
         bot.register_next_step_handler(no, get_why2)
     else:
         yes = bot.send_message(message.chat.id, 'Все мы меняемся со временем, поэтому смена круга общения '
@@ -545,14 +577,15 @@ def get_why2(message):
                                                   'однако, знаешь, в компании ребят всегда есть '
                                                   'какой-то открытый человек, который с радостью доверится '
                                                   'впустить к себе в общество «новичка». Тебе же нужно работать '
-                                                  'над своей самоуверенностью. И сейчас мы с тобой это сделаем!', reply_markup=keyboard4)
+                                                  'над своей самоуверенностью. И сейчас мы с тобой это сделаем!',
+                                 reply_markup=keyboard4)
         bot.register_next_step_handler(cause, get_scary)
     elif message.text.lower() == 'меня отвергают':
         cause = bot.send_message(message.chat.id, 'Мне жаль, если это и правда происходило часто. '
-                                                 'Но, к сожалению, чаще отвергают тех, кто позволяет '
-                                                 'себя отвергать. Постарайся не поддаваться на провокации и '
-                                                 'не выдавать желаемых обидчику реакций. Будь выше, относись к '
-                                                 'людям по-философски, знай себе цену.', reply_markup=keyboard5)
+                                                  'Но, к сожалению, чаще отвергают тех, кто позволяет '
+                                                  'себя отвергать. Постарайся не поддаваться на провокации и '
+                                                  'не выдавать желаемых обидчику реакций. Будь выше, относись к '
+                                                  'людям по-философски, знай себе цену.', reply_markup=keyboard5)
         bot.register_next_step_handler(cause, start_handler)
     elif message.text.lower() == 'я боюсь':
         cause = bot.send_message(message.chat.id, 'Такие ощущения знакомы многим, к счастью, это можно решить. '
@@ -560,7 +593,8 @@ def get_why2(message):
                                                   'однако, знаешь, в компании ребят всегда есть '
                                                   'какой-то открытый человек, который с радостью доверится '
                                                   'впустить к себе в общество «новичка». Тебе же нужно работать '
-                                                  'над своей самоуверенностью. И сейчас мы с тобой это сделаем!', reply_markup=keyboard4)
+                                                  'над своей самоуверенностью. И сейчас мы с тобой это сделаем!',
+                                 reply_markup=keyboard4)
         bot.register_next_step_handler(cause, get_scary)
     else:
         cause = bot.send_message(message.chat.id, 'Конечно, я не могу знать наверняка причины твоего отношения '
@@ -570,13 +604,15 @@ def get_why2(message):
                                                   'Не суди всех так строго и давай людям шанс. '
                                                   'Однако, если я ошибаюсь, и вокруг тебя собралось токсичное общество, '
                                                   'то эту уже тема для более глубокой проработки. Советую обратиться '
-                                                  'к профессионалам. Знаешь, не все психологи плохие...', reply_markup=keyboard5)
+                                                  'к профессионалам. Знаешь, не все психологи плохие...',
+                                 reply_markup=keyboard5)
         bot.register_next_step_handler(cause, start_handler)
 
 
 def get_friends2(message):
     if message.text.lower() == 'друзья отдаляются':
-        friend = bot.send_message(message.chat.id, 'Понимаю, это грустно. Ты хочешь вернуть общение?', reply_markup=keyboard8)
+        friend = bot.send_message(message.chat.id, 'Понимаю, это грустно. Ты хочешь вернуть общение?',
+                                  reply_markup=keyboard8)
         bot.register_next_step_handler(friend, get_friends3)
     elif message.text.lower() == 'мы стали слишком разные':
         friend = bot.send_message(message.chat.id, 'Все мы меняемся со временем, поэтому смена круга общения '
@@ -587,7 +623,8 @@ def get_friends2(message):
                                                    ' друг от друга. Это грустно, но если ты сам не хочешь'
                                                    ' уже что-то менять, то в глубине души понимаешь, что это так. '
                                                    'А если желание изменить всё есть, то не медли, действуй! Лучше всего'
-                                                   'открыто поговорить и поставить все точки над Ё ', reply_markup=keyboard5)
+                                                   'открыто поговорить и поставить все точки над Ё ',
+                                  reply_markup=keyboard5)
         bot.register_next_step_handler(friend, start_handler)
     else:
         friend = bot.send_message(message.chat.id, 'Это чудесно! Молодец! Но в чём проблема? '
@@ -595,14 +632,15 @@ def get_friends2(message):
         bot.register_next_step_handler(friend, get_new_talk)
 
 
-
 def get_say(message):
     say = message.text
-    oh = bot.send_message(message.chat.id, 'Отлично, у тебя есть понимание! И ты понимаешь, что дружба - ' + str(say).lower() +
+    oh = bot.send_message(message.chat.id,
+                          'Отлично, у тебя есть понимание! И ты понимаешь, что дружба - ' + str(say).lower() +
                           'Теперь для себя реши, как ты хочешь дружить. Если для тебя важно проводить время вместе '
                           'за беседами ни о чем, то интересы здесь не столько важны, сколько схожесть характера. '
                           'А если всё-таки совпадение интересов важно, то попробуй поискать единомышленников '
-                          'в тематических сообществах. Не волнуйся брать инициативу на себя и действуй!', reply_markup=keyboard5)
+                          'в тематических сообществах. Не волнуйся брать инициативу на себя и действуй!',
+                          reply_markup=keyboard5)
     bot.register_next_step_handler(oh, start_handler)
 
 
@@ -616,7 +654,8 @@ def get_friends3(message):
                                                'и развивать свои интересы вдали друг от друга. Это грустно, '
                                                'но если ты сам не хочешь уже что-то менять, то в '
                                                'глубине души понимаешь, что это так. Однако, если ты всё '
-                                               'ещё чувствуешь, что вы нужны друг другу, лучше открыто всё обсудить!', reply_markup=keyboard5)
+                                               'ещё чувствуешь, что вы нужны друг другу, лучше открыто всё обсудить!',
+                              reply_markup=keyboard5)
         bot.register_next_step_handler(no, start_handler)
 
 
@@ -629,7 +668,8 @@ def get_friends4(message):
                                                 'Если вразумительного ответа не будет, или он сразу '
                                                 'скажет "да" - то переходи к следующему пункту – '
                                                 'прекратить общение с этим человеком. Дружбу не может '
-                                                'тянуть кто-то один, поэтому тут лучше разойтись.', reply_markup=keyboard5)
+                                                'тянуть кто-то один, поэтому тут лучше разойтись.',
+                               reply_markup=keyboard5)
         bot.register_next_step_handler(yes, start_handler)
     else:
         no = bot.send_message(message.chat.id, 'Попробуй узнать у друга, почему он отдалился, может, у него '
@@ -640,11 +680,11 @@ def get_friends4(message):
         bot.register_next_step_handler(no, start_handler)
 
 
-
 def get_new_talk(message):
     if message.text.lower() == 'да':
         yes = bot.send_message(message.chat.id, 'Ты пробуешь – это уже хорошо! Но, видимо, что-то пошло не так. '
-                                                'Давай обсудим, почему друзья тебя не принимают?', reply_markup=keyboard4)
+                                                'Давай обсудим, почему друзья тебя не принимают?',
+                               reply_markup=keyboard4)
         bot.register_next_step_handler(yes, get_friends5)
     else:
         no = bot.send_message(message.chat.id, 'Возможно, просто пришло время вам отпустить друг друга '
@@ -656,7 +696,7 @@ def get_new_talk(message):
 
 def get_friends5(message):
     next = bot.send_message(message.chat.id, 'Итак, как ты думаешь, почему друзья тебя не принимают? В чём сложности?',
-                           reply_markup=keyboard14)
+                            reply_markup=keyboard14)
     bot.register_next_step_handler(next, get_why2)
 
 
@@ -687,6 +727,7 @@ def get_scary3(message):
                                              'себя как рыба в воде!', reply_markup=keyboard5)
     bot.register_next_step_handler(good, start_handler)
 
+
 def get_exams(message):
     if message.text.lower() == 'огэ':
         oge = bot.send_message(message.chat.id, 'Планируешь ли ты поступать в колледж?', reply_markup=keyboard8)
@@ -695,29 +736,33 @@ def get_exams(message):
         ege = bot.send_message(message.chat.id, 'Ох, это действительно тяжёлый вопрос. '
                                                 'Ты наверняка беспокоишься, что твоя жизнь закончится в случае провала, '
                                                 'как бы это ни звучало, но это не так. Жизнь продолжается. '
-                                                'Не нужно думать, что всё кончено. Но давай продолжим, если хочешь!', reply_markup=keyboard4)
+                                                'Не нужно думать, что всё кончено. Но давай продолжим, если хочешь!',
+                               reply_markup=keyboard4)
         bot.register_next_step_handler(ege, get_ege)
 
 
 def get_college(message):
-    global ans1_oge
     ans1_oge = message.text.lower()
+    answers_oge.ans1 = ans1_oge
     oge = bot.send_message(message.chat.id, 'Испытываешь ли ты давление со стороны кого-то?', reply_markup=keyboard8)
     bot.register_next_step_handler(oge, get_college2)
 
+
 def get_college2(message):
     if message.text.lower() == 'да':
-        college = bot.send_message(message.chat.id, 'Скажи, это давление со стороны родителей или учителей?', reply_markup=keyboard2)
+        college = bot.send_message(message.chat.id, 'Скажи, это давление со стороны родителей или учителей?',
+                                   reply_markup=keyboard2)
         bot.register_next_step_handler(college, get_attention_parents)
     else:
         college = bot.send_message(message.chat.id, 'Как ты думаешь, сможешь ли ты набрать проходные баллы? '
                                                     'Хотя бы по одному предмету', reply_markup=keyboard8)
         bot.register_next_step_handler(college, get_balls)
 
+
 def get_balls(message):
-    global ans2_oge
     ans2_oge = message.text.lower()
-    if ans1_oge == 'да' and ans2_oge == 'нет':
+    answers_oge.ans2 = ans2_oge
+    if answers_oge.ans1 == 'да' and answers_oge.ans2 == 'нет':
         oge_end = bot.send_message(message.chat.id, 'Выпиши предметы, с которыми есть сложности. Проработай проблему '
                                                     'с ними - явно какие-то задания тебе уже удаются, посмотри, '
                                                     'где возникают сложности. И ни за что не переживай. '
@@ -726,9 +771,10 @@ def get_balls(message):
                                                     'если нет проблем со школьными знаниями. Это первая '
                                                     'твоя знаковая проверка, да, но ты почти наверняка её сдашь, '
                                                     'если не будешь нервничать и переживать! А если не получится '
-                                                    'поступить в колледж, то ты всегда можешь остаться в школе!', reply_markup=keyboard4)
+                                                    'поступить в колледж, то ты всегда можешь остаться в школе!',
+                                   reply_markup=keyboard4)
         bot.register_next_step_handler(oge_end, get_oge_end)
-    elif ans1_oge == 'да' and ans2_oge == 'да':
+    elif answers_oge.ans1 == 'да' and answers_oge.ans2 == 'да':
         oge_end = bot.send_message(message.chat.id, 'Тебе следует понять, что чужие ожидания - чужие проблемы. '
                                                     'А твои переживания - это то, с чем ты можешь справиться сам! '
                                                     'Ты хорошо подготовился и точно наберёшь какие-то баллы. '
@@ -737,15 +783,17 @@ def get_balls(message):
                                                     'впадать в панику! Никакого смысла в этом нет. А вот чтобы '
                                                     'гарантированно поступить в колледж, остаётся только работать'
                                                     'и ещё более усердно заниматься. Только ни за что не дави на себя!'
-                                                    'На край, всегда остаётся вариант с тем, чтобы остаться в школе!', reply_markup=keyboard4)
+                                                    'На край, всегда остаётся вариант с тем, чтобы остаться в школе!',
+                                   reply_markup=keyboard4)
         bot.register_next_step_handler(oge_end, get_oge_end)
-    elif ans1_oge == 'нет' and ans2_oge == 'да':
-        oge_end = bot.send_message(message.chat.id, 'Успокойся! :) Ты хорошо подготовился и точно наберёшь проходные баллы. '
-                                                    'Коли ты планируешь продолжить обучение в школе то постарайся расслабиться '
-                                                    'и отпустить ситуацию. ОГЭ ты сдашь единожды в жизни и забудешь про него, '
-                                                    'как про не очень приятный сон. Никакого смысла в этом нет, '
-                                                    'если так подумать. Но если есть вещи, которые тебя действительно беспокоят, '
-                                                    'советую попробовать снять тревожность в другой ветке бота!', reply_markup=keyboard4)
+    elif answers_oge.ans1 == 'нет' and answers_oge.ans2 == 'да':
+        oge_end = bot.send_message(message.chat.id,
+                                   'Успокойся! :) Ты хорошо подготовился и точно наберёшь проходные баллы. '
+                                   'Коли ты планируешь продолжить обучение в школе то постарайся расслабиться '
+                                   'и отпустить ситуацию. ОГЭ ты сдашь единожды в жизни и забудешь про него, '
+                                   'как про не очень приятный сон. Никакого смысла в этом нет, '
+                                   'если так подумать. Но если есть вещи, которые тебя действительно беспокоят, '
+                                   'советую попробовать снять тревожность в другой ветке бота!', reply_markup=keyboard4)
         bot.register_next_step_handler(oge_end, get_oge_end)
     else:
         oge_end = bot.send_message(message.chat.id, 'Тогда остаётся только работать, работать и работать! '
@@ -780,37 +828,37 @@ def get_ege(message):
 
 
 def get_ege2(message):
-    global ans1_ege
     ans1_ege = message.text.lower()
+    answers_ege.ans1 = ans1_ege
     ege2 = bot.send_message(message.chat.id, 'Тебя волнует поступление в ВУЗ?', reply_markup=keyboard8)
     bot.register_next_step_handler(ege2, get_ege3)
 
 
 def get_ege3(message):
-    global ans2_ege
     ans2_ege = message.text.lower()
+    answers_ege.ans2 = ans2_ege
     ege3 = bot.send_message(message.chat.id, 'Ты боишься "потерять" 1 год жизни?', reply_markup=keyboard8)
     bot.register_next_step_handler(ege3, get_ege4)
 
 
 def get_ege4(message):
-    global ans3_ege
     ans3_ege = message.text.lower()
+    answers_ege.ans3 = ans3_ege
     ege4 = bot.send_message(message.chat.id, 'Тебя пугают видеокамеры и съёмка твоих действий?', reply_markup=keyboard8)
     bot.register_next_step_handler(ege4, get_ege5)
 
 
 def get_ege5(message):
-    global ans4_ege
     ans4_ege = message.text.lower()
+    answers_ege.ans4 = ans4_ege
     ege5 = bot.send_message(message.chat.id, 'Ощущаешь ли ты давление на тебя со стороны?', reply_markup=keyboard8)
     bot.register_next_step_handler(ege5, get_ege_end)
 
 
 def get_ege_end(message):
-    global ans5_ege
     ans5_ege = message.text.lower()
-    if ans2_ege == 'да' and ans3_ege == 'да' and ans4_ege == 'да' and ans5_ege == 'да':
+    answers_ege.ans5 = ans5_ege
+    if answers_ege.ans2 == 'да' and answers_ege.ans3 == 'да' and answers_ege.ans4 == 'да' and answers_ege.ans5 == 'да':
         ege = bot.send_message(message.chat.id, 'Да уж... 11 класс, всё понимаю, но аж столько нервов - это сильно! '
                                                 'Но смотри, во-первых, тебе необходимо как следует подготовиться '
                                                 'к экзаменам. В ЕГЭ очень много типичных и шаблонных заданий - сделай '
@@ -819,15 +867,16 @@ def get_ege_end(message):
                                                 'Но если ты ощущаешь серьёзное давление на тебя, то советую перейти в '
                                                 'другую тему бота и проработать этот вопрос.', reply_markup=keyboard4)
         bot.register_next_step_handler(ege, get_oge_end)
-    elif ans2_ege == 'нет' and ans3_ege == 'нет' and ans4_ege == 'нет':
+    elif answers_ege.ans2 == 'нет' and answers_ege.ans3 == 'нет' and answers_ege.ans4 == 'нет':
         ege = bot.send_message(message.chat.id, 'Так, я заинтригован и внимательно тебя слушаю... '
                                                 'Обычно почти все переживают из-за поступления в ВУЗ или из-за '
                                                 'потери года жизни в целом, а у тебя с этим вроде как нет проблем. '
                                                 'Напиши нам на почту psychobot@inbox.ru, что тебя волнует. '
                                                 'Мы ещё работаем над ботом, но это будет очень полезно для '
-                                                'дальнейшего развития! Удачи тебе в дальнейшем!', reply_markup=keyboard5)
+                                                'дальнейшего развития! Удачи тебе в дальнейшем!',
+                               reply_markup=keyboard5)
         bot.register_next_step_handler(ege, start_handler)
-    elif ans2_ege == 'да' and ans3_ege == 'да':
+    elif answers_ege.ans2 == 'да' and answers_ege.ans3 == 'да':
         ege = bot.send_message(message.chat.id, 'Как ты думаешь, неужели бабушкам и дедушкам было легко сдавать '
                                                 'экзамены по всем изучаемым в школе предметам? Родителям могло '
                                                 'повезти немного больше: экзамены уже можно было выбирать. '
@@ -837,7 +886,7 @@ def get_ege_end(message):
                                                 'А многие люди бросали и бросают университет. Можно ли утверждать, '
                                                 'что все они потеряли год жизни? Не думаю...', reply_markup=keyboard4)
         bot.register_next_step_handler(ege, get_oge_end)
-    elif ans1_ege == 'да' and ans4_ege =='да':
+    elif answers_ege.ans1 == 'да' and answers_ege.ans4 == 'да':
         ege = bot.send_message(message.chat.id, 'Смотри, нас снимают на работе, в школе, на улице, в парикмахерской, '
                                                 'на приёме у стоматолога и много где ещё. Мы перестали обращать на '
                                                 'это внимание. Но когда вспоминаем про ЕГЭ, то почему-то '
@@ -845,7 +894,7 @@ def get_ege_end(message):
                                                 'Просто не нарушай правила и не рискуй тогда, когда не надо. '
                                                 'Правда будет на твоей стороне в случае чего!', reply_markup=keyboard4)
         bot.register_next_step_handler(ege, get_oge_end)
-    elif ans4_ege == 'да':
+    elif answers_ege.ans4 == 'да':
         ege = bot.send_message(message.chat.id, 'Страх видеокамер - это интересное, но распространённое свойство. '
                                                 'Конечно, раньше на экзаменах на видеокамеру никого не снимали, '
                                                 'но очень строго контролировали сдачу экзаменов члены '
@@ -853,34 +902,39 @@ def get_ege_end(message):
                                                 'не пользовался шпаргалками. И экзамены все люди тоже сдавали в '
                                                 'непривычной для себя обстановке. Опять же, стоит себя спросить: '
                                                 'так ли непривычно тебе находиться под объективом видеокамер? '
-                                                'Увы, повсеместная видеосъёмка стала нормой современной жизни.', reply_markup=keyboard4)
+                                                'Увы, повсеместная видеосъёмка стала нормой современной жизни.',
+                               reply_markup=keyboard4)
         bot.register_next_step_handler(ege, get_oge_end)
-    elif ans1_ege == 'да' or ans2_ege == 'да':
-        ege = bot.send_message(message.chat.id, 'Неплохо сдать хоть один экзамен - уже повод для гордости, на самом деле! '
-                                                'По статистике каждый год минимум 7% учеников заваливают ЕГЭ. Уже неплохо, '
-                                                'что в их число ты не входишь. Дальше стоит наметить план подготовки! '
-                                                ' В ЕГЭ очень много типичных и шаблонных заданий - сделай '
-                                                'на них упор! Что касается итогов сдачи - мир не рухнет, если вдруг '
-                                                'не выйдет поступить в унивреситет. Перед тобой всё равно будет '
-                                                'много возможностей. Главное - верить в себя.', reply_markup=keyboard4)
+    elif answers_ege.ans1 == 'да' or answers_ege.ans2 == 'да':
+        ege = bot.send_message(message.chat.id,
+                               'Неплохо сдать хоть один экзамен - уже повод для гордости, на самом деле! '
+                               'По статистике каждый год минимум 7% учеников заваливают ЕГЭ. Уже неплохо, '
+                               'что в их число ты не входишь. Дальше стоит наметить план подготовки! '
+                               ' В ЕГЭ очень много типичных и шаблонных заданий - сделай '
+                               'на них упор! Что касается итогов сдачи - мир не рухнет, если вдруг '
+                               'не выйдет поступить в унивреситет. Перед тобой всё равно будет '
+                               'много возможностей. Главное - верить в себя.', reply_markup=keyboard4)
         bot.register_next_step_handler(ege, get_oge_end)
-    elif ans2_ege == 'нет' and ans3_ege == 'нет':
+    elif answers_ege.ans2 == 'нет' and answers_ege.ans3 == 'нет':
         ege = bot.send_message(message.chat.id, 'Главное - не паникуй. Подумай: может, тогда лучше выждать паузу, '
                                                 'сдав экзамены через год? Знаешь, ничего глобально страшного '
                                                 'не случится, если в этом году не получится. Не в этот год, '
                                                 'так в следующий. Да и всегда есть возможность попробовать пересдать. '
                                                 'Изучи список ВУЗов, подумай над возможным переездом. '
                                                 'Помни, что варианты есть всегда и жизнь не кончается из-за '
-                                                'одной неуспешной сдачи. Это не будет фатальной ошибкой!', reply_markup=keyboard4)
+                                                'одной неуспешной сдачи. Это не будет фатальной ошибкой!',
+                               reply_markup=keyboard4)
         bot.register_next_step_handler(ege, get_oge_end)
-    elif ans5_ege == 'да':
-        ege = bot.send_message(message.chat.id, 'Скажи, это давление со стороны родителей или учителей?', reply_markup=keyboard2)
+    elif answers_ege.ans5 == 'да':
+        ege = bot.send_message(message.chat.id, 'Скажи, это давление со стороны родителей или учителей?',
+                               reply_markup=keyboard2)
         bot.register_next_step_handler(ege, get_attention_parents)
-    elif ans3_ege == 'да':
-        ege = bot.send_message(message.chat.id, 'Ох, понимаю твоё волнение. Скажу тебе по секрету, я тоже этого очень боялся. '
-                                                'Однако жизнь не кончается, если не поступить в университет. '
-                                                'Не нужно думать, что если ты завалишь ЕГЭ - твоя жизнь будет окончена, '
-                                                'ведь это не так.', reply_markup=keyboard4)
+    elif answers_ege.ans3 == 'да':
+        ege = bot.send_message(message.chat.id,
+                               'Ох, понимаю твоё волнение. Скажу тебе по секрету, я тоже этого очень боялся. '
+                               'Однако жизнь не кончается, если не поступить в университет. '
+                               'Не нужно думать, что если ты завалишь ЕГЭ - твоя жизнь будет окончена, '
+                               'ведь это не так.', reply_markup=keyboard4)
         bot.register_next_step_handler(ege, get_oge_end)
     else:
         ege = bot.send_message(message.chat.id, 'Я в тебя верю в любом случае! И всегда тебя поддержу! Знаю, звучит '
